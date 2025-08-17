@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { saveAs } from "file-saver";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -34,6 +36,14 @@ export default function Portfolio() {
   }
 
   const [activeSection, setActiveSection] = useState("home");
+
+  const handleDownload = () => {
+    fetch("/resume.pdf")
+      .then((res) => res.blob())
+      .then((blob) => {
+        saveAs(blob, "Badral_Resume.pdf");
+      });
+  };
 
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
@@ -841,6 +851,7 @@ export default function Portfolio() {
 
               <div className="pt-4">
                 <Button
+                  onClick={handleDownload}
                   size="lg"
                   variant="outline"
                   className="w-full bg-transparent text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
